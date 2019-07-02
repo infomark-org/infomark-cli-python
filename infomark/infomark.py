@@ -1,3 +1,13 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+Simple Infomark library to query endpoints.
+
+See https://infomark.org/swagger/ for more information about available
+endpoints.
+"""
+
 import requests
 import sys
 
@@ -30,21 +40,21 @@ class Infomark(object):
                     {
                         "email": email,
                         "plain_password": password
-                    })
+                    }).json()
     self.token = rsl['access']['token']
     self.headers = {"Authorization": "Bearer %s" % self.token}
 
   def post(self, url, json={}):
-    return requests.post(self._url(url), json=json, headers=self.headers).json()
+    return requests.post(self._url(url), json=json, headers=self.headers)
 
   def put(self, url, json={}):
-    return requests.put(self._url(url), json=json, headers=self.headers).json()
+    return requests.put(self._url(url), json=json, headers=self.headers)
 
   def patch(self, url, json={}):
-    return requests.patch(self._url(url), json=json, headers=self.headers).json()
+    return requests.patch(self._url(url), json=json, headers=self.headers)
 
   def delete(self, url):
-    return requests.delete(self._url(url), headers=self.headers).json()
+    return requests.delete(self._url(url), headers=self.headers)
 
   def get(self, url):
     return requests.get(self._url(url), headers=self.headers)
